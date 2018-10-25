@@ -1,3 +1,6 @@
+<?php 
+	include('functions.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,7 +9,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 <link rel="icon" href="images/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="../style.css">
+<link rel="stylesheet" type="text/css" href="styleLogin.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -23,7 +27,7 @@ body, html {
 .bgimg-1 {
     background-position: center;
     background-size: cover;
-    background-image: url("images/bgimg3.jpg");
+    background-image: url("../images/bgimg3.jpg");
     min-height: 100%;
 }
 .w3-bar .w3-button {
@@ -46,9 +50,19 @@ body, html {
       <a href="recipes/recipes.php" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
       <a href="#team" class="w3-bar-item w3-button"><i class="fas fa-concierge-bell"></i></i> CHEFS</a>
       <a href="#work" class="w3-bar-item w3-button"><i class="fab fa-blogger-b"></i></i> BLOG</a>
-      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
-      <a href="login/register.php" class="w3-bar-item w3-button"><i class="fas fa-user-circle"></i> LOGIN | REGISTER</a>
-    </div>
+	    <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+	  
+	    <a href="index.php?logout='1'"><button type="submit" class="w3-bar-item w3-button" name="logout_btn">
+      <i class="fas fa-user-circle"></i>
+	      <?php  if (isset($_SESSION['user'])) : ?>
+					<strong><?php echo $_SESSION['user']['username']; ?></strong>
+					<small>
+						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+					</small>
+					<?php endif ?> 
+	 
+	        Logout</a></button>
+      </div>
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
 
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="w3_open()">
@@ -65,7 +79,19 @@ body, html {
   <a href="recipes/recipes.php" onclick="w3_close()" class="w3-bar-item w3-button">CHEFS</a>
   <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">BLOG</a>
   <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
-  <a href="login/register.php" onclick="w3_close()" class="w3-bar-item w3-button"> LOGIN | REGISTER</a>
+  <a href="index.php?logout='1'"><button type="submit" class="w3-bar-item w3-button" name="logout_btn">
+		  
+	 <?php  if (isset($_SESSION['user'])) : ?>
+					<strong><?php echo $_SESSION['user']['username']; ?></strong>
+					<small>
+						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
+					</small>
+					<?php endif ?> 
+	 
+	  Logout<i class="fas fa-user-circle"></i></a>
+    </div>
+		  
+	 
 </nav>
 
 <!-- Header with full-height image -->
@@ -116,7 +142,7 @@ body, html {
       <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> Come over to our blog</a></p>
     </div>
     <div class="w3-col m6">
-      <img class="w3-image w3-round-large" src="images/blog.jpg" alt="Buildings" style="width:75%; float:left; margin:40px" >
+      <img class="w3-image w3-round-large" src="../images/blog.jpg" alt="Buildings" style="width:75%; float:left; margin:40px" >
     </div>
   </div>
 </div>
@@ -128,7 +154,7 @@ body, html {
   <div class="w3-row-padding w3-grayscale-min" style="margin-top:64px">
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="images/chef1.jpg" alt="John" style="width:100%">
+        <img src="../images/chef1.jpg" alt="John" style="width:100%">
         <div class="w3-container">
           <h3>Dan Avram</h3>
           <p class="w3-opacity">Fusion cuisine</p>
@@ -139,7 +165,7 @@ body, html {
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="images/chef2.jpg" alt="Jane" style="width:100%">
+        <img src="../images/chef2.jpg" alt="Jane" style="width:100%">
         <div class="w3-container">
           <h3>Alexandra Pop</h3>
           <p class="w3-opacity">Haute cuisine</p>
@@ -150,7 +176,7 @@ body, html {
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="images/chef3.jpg" alt="Mike" style="width:100%">
+        <img src="../images/chef3.jpg" alt="Mike" style="width:100%">
         <div class="w3-container">
           <h3>Mike Ross</h3>
           <p class="w3-opacity">Nouvelle cuisine</p>
@@ -161,7 +187,7 @@ body, html {
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-card">
-        <img src="images/chef4.jpg" alt="Dan" style="width:100%">
+        <img src="../images/chef4.jpg" alt="Dan" style="width:100%">
         <div class="w3-container">
           <h3>Oana Trif</h3>
           <p class="w3-opacity">Vegan cuisine</p>
@@ -210,15 +236,15 @@ body, html {
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
           <div class="item active">
-            <img src="images/bgimg.jpg" alt="Los Angeles" style="width:100%;">
+            <img src="../images/bgimg.jpg" alt="Los Angeles" style="width:100%;">
           </div>
     
           <div class="item">
-            <img src="images/bgimg2.jpg" alt="Chicago" style="width:100%;">
+            <img src="../images/bgimg2.jpg" alt="Chicago" style="width:100%;">
           </div>
         
           <div class="item">
-            <img src="images/bgimg4.jpeg" alt="New york" style="width:100%;">
+            <img src="../images/bgimg4.jpeg" alt="New york" style="width:100%;">
           </div>
         </div>
     
@@ -256,18 +282,18 @@ body, html {
   <h3 class="w3-center">CONTACT</h3>
   <p class="w3-center w3-large">Lets get in touch. Send us a message:</p>
   <div class="w3-row-padding" style="margin-top:64px">
-    <div class="w3-col m6">
+    <div class="w3-col m5">
       <p><i class="fa fa-map-marker fa-fw w3-xxlarge w3-margin"></i> Timisoara, RO</p>
       <p><i class="fa fa-phone fa-fw w3-xxlarge w3-margin"></i> Phone: +00 151515</p>
       <p><i class="fa fa-envelope fa-fw w3-xxlarge w3-margin"> </i> Email: contact@cookbook.com</p>
       <br>
       </div>
-      <div class="w3-col m6">
-      <form action="/action_page.php" target="_blank">
-        <p>Name<input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
-        <p>Email<input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
-        <p>Subject<input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
-        <p>Message<input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
+      <div class="w3-col m6" >
+      <form action="/action_page.php" target="_blank" style="width: 600px">
+        <p style="color: rgb(0,0,0)">Name<input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
+        <p style="color: rgb(0,0,0)">Email<input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
+        <p style="color: rgb(0,0,0)">Subject<input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>
+        <p style="color: rgb(0,0,0)">Message<input class="w3-input w3-border" type="text" placeholder="Message" required name="Message"></p>
         <p>
           <button class="w3-button w3-black" type="submit">
             <i class="fa fa-paper-plane"></i> SEND MESSAGE

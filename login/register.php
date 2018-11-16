@@ -37,9 +37,13 @@ body, html {
           <!-- Right-sided navbar links -->
           <div class="w3-right w3-hide-small">
             <a href="../index.html#about" class="w3-bar-item w3-button"><i class="fas fa-question"></i> ABOUT</a>
+            <?php if (isset($_SESSION['user'])) : ?>
             <a href="../recipes/recipes.php" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
+            <?php endif ?>
+            <?php if (!isset($_SESSION['user'])) : ?>
+            <a href="../index.html#recipes" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
+            <?php endif ?>
             <a href="../index.html#team" class="w3-bar-item w3-button"><i class="fas fa-concierge-bell"></i></i> CHEFS</a>
-            <a href="../index.html#work" class="w3-bar-item w3-button"><i class="fab fa-blogger-b"></i></i> BLOG</a>
             <a href="../index.html#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
             <a href="../login/register.php" class="w3-bar-item w3-button"><i class="fas fa-user-circle"></i> LOGIN | REGISTER</a>
           </div>
@@ -55,9 +59,13 @@ body, html {
       <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
         <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
         <a href="../index.html#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
-        <a href="../index.html#team" onclick="w3_close()" class="w3-bar-item w3-button">RECIPES</a>
-        <a href="../recipes/recipes.php" onclick="w3_close()" class="w3-bar-item w3-button">CHEFS</a>
-        <a href="../index.html#work" onclick="w3_close()" class="w3-bar-item w3-button">BLOG</a>
+        <?php if (isset($_SESSION['user'])) : ?>
+            <a href="../recipes/recipes.php" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
+            <?php endif ?>
+            <?php if (!isset($_SESSION['user'])) : ?>
+            <a href="../index.html#recipes" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
+            <?php endif ?>
+        <a href="../index.html#team" onclick="w3_close()" class="w3-bar-item w3-button">CHEFS</a>
         <a href="../index.html#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
         <a href="../login/register.php" onclick="w3_close()" class="w3-bar-item w3-button"> LOGIN | REGISTER</a>
       </nav>

@@ -1,5 +1,5 @@
 <?php 
-  include('../login/functions.php');
+include('../login/functions.php');
 ?>
 <html>
 <head>
@@ -43,7 +43,6 @@ input[type=text], select {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
 </style>
 </head>
 <body>
@@ -109,34 +108,33 @@ input[type=text], select {
       </nav>
 </div>
 
+<div class="card-columns" style="padding-top: 64px; padding-left: 5px; padding-right:5px">
 <?php
-  
-$sql = "SELECT * FROM recipes ORDER BY id ASC";  
-$rs_result = mysqli_query($db, $sql); 
+if(!isset($_POST['search'])){
+    header("Location: recipes.php");
+}
+
+$search_sql = "SELECT * FROM recipes WHERE title LIKE '%".$_POST['search']."%'";
+
+$search_query = mysqli_query($db, $search_sql);
+
+    while($row = mysqli_fetch_assoc($search_query)){ ?>
+        <div class="clearfix card w3-third" style="break-inside: avoid;">
+        <img class="card-img-top" src="<?php echo $row['pic']?>" alt="" style="width: 100%">
+            <div class="card-body">
+                <h4 class="card-title"><?php echo $row['title']?></h4>
+                <p class="card-text"><?php echo $row['ingredients']?></p>
+                <p class="card-text"><?php echo $row['description']?></p>
+            </div>
+            <div class="card-footer">
+                <a href="<?php echo $row['directions']?>" class="btn btn-outline-success">Get details</a>
+            </div>
+        </div>  
+    <?php
+    }
+
 ?>
- 
- <div class="card-columns" style="padding-top: 64px; padding-left: 5px; padding-right:5px">
-<?php  
-while (($row = mysqli_fetch_assoc($rs_result))) {
-?> 
-
-<div class="clearfix card w3-third" style="break-inside: avoid;">
-	<img class="card-img-top" src="<?php echo $row['pic']?>" alt="" style="width: 100%">
-	<div class="card-body">
-	  <h4 class="card-title"><?php echo $row['title']?></h4>
-    <p class="card-text"><?php echo $row['ingredients']?></p>
-    <p class="card-text"><?php echo $row['description']?></p>
-	</div>
-	<div class="card-footer">
-	  <a href="<?php echo $row['directions']?>" class="btn btn-outline-success">Get details</a>
-	</div>
-</div>  
-
-<?php  }  ?>
-
 </div>
-
-
 
 </body>
 </html>

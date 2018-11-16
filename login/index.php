@@ -1,5 +1,5 @@
 <?php 
-	include('functions.php');
+  include('functions.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
@@ -47,12 +47,14 @@ body, html {
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
       <a href="#about" class="w3-bar-item w3-button"><i class="fas fa-question"></i> ABOUT</a>
-      <a href="recipes/recipes.php" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
+      <a href="../recipes/recipes.php" class="w3-bar-item w3-button"><i class="fas fa-utensils"></i></i></i> RECIPES</a>
       <a href="#team" class="w3-bar-item w3-button"><i class="fas fa-concierge-bell"></i></i> CHEFS</a>
-      <a href="#work" class="w3-bar-item w3-button"><i class="fab fa-blogger-b"></i></i> BLOG</a>
-	    <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
-	  
-	    <a href="index.php?logout='1'"><button type="submit" class="w3-bar-item w3-button" name="logout_btn">
+      <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i> CONTACT</a>
+      <?php if (isAdmin()==true) : ?>
+        <a href="../login/home.php" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fas fa-clipboard-list"></i> ADMIN MENU</a>
+        <?php endif ?>
+      
+      <a href="index.php?logout='1'"><button type="submit" class="w3-bar-item w3-button" name="logout_btn">
       <i class="fas fa-user-circle"></i>
 	      <?php  if (isset($_SESSION['user'])) : ?>
 					<strong><?php echo $_SESSION['user']['username']; ?></strong>
@@ -76,21 +78,23 @@ body, html {
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
   <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">RECIPES</a>
-  <a href="recipes/recipes.php" onclick="w3_close()" class="w3-bar-item w3-button">CHEFS</a>
-  <a href="#work" onclick="w3_close()" class="w3-bar-item w3-button">BLOG</a>
+  <a href="../recipes/recipes.php" onclick="w3_close()" class="w3-bar-item w3-button">CHEFS</a>
   <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button">CONTACT</a>
+  <?php if (isAdmin()==true) : ?>
+        <a href="../login/home.php" onclick="w3_close()" class="w3-bar-item w3-button"><i class="fas fa-clipboard-list"></i> ADMIN MENU</a>
+        <?php endif ?>
+      
   <a href="index.php?logout='1'"><button type="submit" class="w3-bar-item w3-button" name="logout_btn">
-		  
-	 <?php  if (isset($_SESSION['user'])) : ?>
+      <i class="fas fa-user-circle"></i>
+	      <?php  if (isset($_SESSION['user'])) : ?>
 					<strong><?php echo $_SESSION['user']['username']; ?></strong>
 					<small>
 						<i  style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i> 
 					</small>
 					<?php endif ?> 
 	 
-	  Logout<i class="fas fa-user-circle"></i></a>
-    </div>
-		  
+	        Logout</a></button>
+      
 	 
 </nav>
 
@@ -106,7 +110,7 @@ body, html {
 </header>
 
 <!-- About Section -->
-<div class="w3-container" style="padding:128px 16px" id="about">
+<div class="w3-container w3-light-grey" style="padding:128px 16px" id="about">
   <h3 class="w3-center">ABOUT THE IDEA</h3>
   <p class="w3-center w3-large">Key features of our virtual CookBook</p>
   <div class="w3-row-padding w3-center" style="margin-top:64px">
@@ -128,24 +132,23 @@ body, html {
   </div>
 </div>
 
-<!--Recipes-->
-<div class="w3-container w3-center w3-light-grey" style="padding:128px 16px" id="about">
-    <h3>Recipes</h3>
-</div>
-
-<!-- Promo Section - "Blog" -->
+<!-- Recipes -->
+<br><br>
 <div class="w3-container " style="padding:15px 25px">
+  <h3 class="w3-center">THE RECIPES</h3>
   <div class="w3-row-padding">
     <div class="w3-col m6">
-      <h3>Looking for some tips or just light reading?</h3>
-      <p>We gather tips and tricks from our chefs, internet foodies and partner <br>influencers to bring you the best advice.</p>
-      <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> Come over to our blog</a></p>
+      <h3>Ready for some serious inspo?</h3>
+      <p>Hundreds of recipes are waiting for you!</p>
+      <p><a href="../recipes/recipes.php" class="w3-button w3-black"><i class="fa fa-th"> </i> Start browsing</a></p>
     </div>
     <div class="w3-col m6">
-      <img class="w3-image w3-round-large" src="../images/blog.jpg" alt="Buildings" style="width:75%; float:left; margin:40px" >
+      <img class="w3-image w3-round-large" src="../images/bgimg.jpg" alt="Buildings" style="width:75%; float:left; margin:40px" >
     </div>
   </div>
 </div>
+
+
 
 <!-- Team Section -->
 <div class="w3-container w3-light-grey" style="padding:128px 16px" id="team">
@@ -200,70 +203,7 @@ body, html {
 </div>
 
 
-<!-- Work Section -->
-<div class="w3-container" style="padding:128px 16px" id="work">
-  <h3 class="w3-center">BLOG</h3>
-  <p class="w3-center w3-large">Here you will find all the advice you need.</p>
-<!--
-  <div class="w3-row-padding" style="margin-top:64px">
-    <div class="w3-col l3 m6" style="border: 4px; border-color: black">
-      <img src="images/chop.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="How to chop like a pro!">
-      <p class="w3-center"> How to chop like a pro</p>
-    </div>
-    <div class="w3-col l3 m6">
-      <img src="images/vegan.jpeg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Go vegan">
-      <p class="w3-center"> Tips for going vegan</p>
-    </div>
-    <div class="w3-col l3 m6">
-      <img src="images/water.jpeg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Easy ways to stay hidrated">
-      <p class="w3-center"> Easy ways to stay hidrated</p>
-    </div>
-    <div class="w3-col l3 m6">
-      <img src="images/coconut.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Best ways to use coconut oil">
-      <p class="w3-center"> Best ways to use coconut oil</p>
-    </div>
-  </div> -->
 
-  <div class="container">
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-        </ol>
-    
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div class="item active">
-            <img src="../images/bgimg.jpg" alt="Los Angeles" style="width:100%;">
-          </div>
-    
-          <div class="item">
-            <img src="../images/bgimg2.jpg" alt="Chicago" style="width:100%;">
-          </div>
-        
-          <div class="item">
-            <img src="../images/bgimg4.jpeg" alt="New york" style="width:100%;">
-          </div>
-        </div>
-    
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-
-  <br>
-  <p class="w3-button w3-black" ><i class="fa fa-th"> </i> Click here for more </p>
-  
-</div>
 
 <!-- Modal for full size images on click-->
 <div id="modal01" class="w3-modal w3-black" onclick="this.style.display='none'">
@@ -289,7 +229,7 @@ body, html {
       <br>
       </div>
       <div class="w3-col m6" >
-      <form action="/action_page.php" target="_blank" style="width: 600px">
+      <form action="/action_page.php" target="_blank" >
         <p style="color: rgb(0,0,0)">Name<input class="w3-input w3-border" type="text" placeholder="Name" required name="Name"></p>
         <p style="color: rgb(0,0,0)">Email<input class="w3-input w3-border" type="text" placeholder="Email" required name="Email"></p>
         <p style="color: rgb(0,0,0)">Subject<input class="w3-input w3-border" type="text" placeholder="Subject" required name="Subject"></p>

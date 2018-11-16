@@ -2,7 +2,14 @@
 session_start();
 
 // connect to database
-$db = mysqli_connect("shareddb1e.hosting.stackcp.net", "tastyusers-363764d9", "cwzfci6hir", "tastyusers-363764d9");
+$db = mysqli_connect("shareddb1e.hosting.stackcp.net", "tastyusers-363764d9", "cwzfci6hir", "tastyusers-363764d9") or die("Connection failed: " . mysqli_connect_error());
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+} 
+
+
 
 // variable declaration
 $username = "";
@@ -166,5 +173,110 @@ function isAdmin()
 		return false;
 	}
 }
+
+// call the remove_user() function when remove_btn is clicked
+if (isset($_POST['remove_btn'])) {
+	remove_user();
+}
+
+// REGISTER USER
+function remove_user(){
+	// call these variables with the global keyword to make them available in function
+	global $db, $errors, $username;
+
+	// receive all input values from the form. Call the e() function
+    // defined below to escape form values
+	$username    =  e($_POST['username']);
+	// form validation: ensure that the form is correctly filled
+	if (empty($username)) { 
+		array_push($errors, "Username is required"); 
+	}
+
+	// register user if there are no errors in the form
+	if (count($errors) == 0) {
+
+		$query = "DELETE FROM `users` WHERE username = '$username'";
+		mysqli_query($db, $query);
+		header('location: home.php');
+		
+	}
+}
+
+
+//for recipes
+
+// variable declaration
+$title = "";
+$pic = "";
+$ingredients = "";
+$description = "";
+$directions = "";
+$errors = array();
+
+// call the register() function if register_btn is clicked
+if (isset($_POST['new_recipe_btn'])) {
+	new_recipe();
+}
+
+
+
+// return recipe array from their id
+function getRecipeById($id){
+	global $db;
+	$query = "SELECT * FROM recipes WHERE id=" . $id;
+	$result = mysqli_query($db, $query);
+
+	$recipe = mysqli_fetch_assoc($result);
+	return $recipe;
+}
+
+
+// ADD NEW RECIPE
+
+function new_recipe(){
+	global $db, $title, $pic, $ingredients, $description, $errors;
+
+	// grap form values
+	$title = e($_POST['title']);
+	$pic = e($_POST['pic']);
+	$ingredients = e($_POST['ingredients']);
+	$description = e($_POST['description']);
+	$directions = e($_POST['directions']);
+
+	// make sure form is filled properly
+	if (empty($title)) {
+		array_push($errors, "Title is required");
+	}
+	if (empty($pic)) {
+		array_push($errors, "Picture is required");
+	}
+	if (empty($ingredients)) {
+		array_push($errors, "List of ingredients required");
+	}
+	if (empty($description)) {
+		array_push($errors, "Description is required");
+	}
+	if (empty($directions)) {
+		array_push($errors, "Directions are required");
+	}
+
+	// add recipe to db if there are no errors in the form
+	if (count($errors) == 0) {
+		
+		$query = "INSERT INTO recipes (title, pic, ingredients, description, directions) 
+					  VALUES('$title', '$pic', '$ingredients', '$description', '$directions')";
+			mysqli_query($db, $query);
+			header('location: view_recipes.php');
+	}
+	
+}
+
+
+
+
+
+
+
+
 
 

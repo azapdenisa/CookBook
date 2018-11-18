@@ -1,4 +1,8 @@
-<?php include('../login/functions.php') ?>
+<?php
+include('../login/functions.php');
+include('../recipes/edit_recipe_query.php');
+?>
+
 <html>
 <head>
     <title>Tasty Therapy</title>
@@ -90,34 +94,44 @@ body, html {
 
 <div style="padding-top: 64px;">
 <div class="header">
-		<h2>New recipe</h2>
+		<h2>Edit current recipe data</h2>
 	</div>
-	<form method="post" action="new_recipe.php">
+    
+	<form method="post" action='edit_recipe_query.php'>
 
-		<?php echo display_error(); ?>
+    <?php echo display_error(); 
+    $idToEdit = $_POST['id'];
+    $query="SELECT * FROM recipes WHERE id = '$idToEdit'";
+    mysqli_query($db, $query);
+    $result = mysqli_query($db, $query);
+    $row = mysqli_fetch_assoc($result);
+    
+    ?>
 
 		<div class="input-group">
 			<label>Recipe title</label>
-			<input type="text" name="title" >
+			<input type="text" name="title" placeholder="<?php echo $row['title'] ?>">
 		</div>
 		<div class="input-group">
 			<label>Pic - add link to picture</label>
-			<input type="text" name="pic">
+			<input type="text" name="pic" placeholder="<?php echo $row['pic'] ?>">
 		</div>
     <div class="input-group">
 			<label>Ingredients - separated by ","</label>
-			<input type="text" name="ingredients">
+			<input type="text" name="ingredients" placeholder="<?php echo $row['ingredients'] ?>">
 		</div>
         <div class="input-group">
 			<label>Description</label>
-			<input type="text" name="description">
+			<input type="text" name="description" placeholder="<?php echo $row['description'] ?>">
     </div>
     <div class="input-group">
 			<label>Details - add link to article</label>
-			<input type="text" name="directions">
+			<input type="text" name="directions" placeholder="<?php echo $row['directions'] ?>">
 		</div>
 		<div class="input-group">
-			<button type="submit" class="btn" name="new_recipe_btn">Add recipe</button>
+          <input type="hidden" name="id" id="id" value="<?php echo $idToEdit ?>">
+          <button type="submit" class="btn" name="edit_recipe_btn">Update recipe</button> 
+                             
 		</div>
 		
   </form>

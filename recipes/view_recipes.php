@@ -113,6 +113,7 @@
                 <th> &nbsp &nbsp Ingredients &nbsp &nbsp</th>
                 <th> &nbsp &nbsp Description &nbsp &nbsp</th>
                 <th> &nbsp &nbsp Directions link &nbsp &nbsp</th>
+                <th> &nbsp &nbsp Edit &nbsp &nbsp</th>
                 <th> &nbsp &nbsp Delete &nbsp &nbsp</th>
 
             </tr>
@@ -129,6 +130,14 @@
                     <td>{$row['ingredients']}</td>
                     <td>{$row['description']}</td>
                     <td>{$row['directions']}</td> "?> 
+                    <form method="post" action='edit_recipe.php?id="<?php echo $row['id'];?>"'>
+                    <td class="recipe-edit">
+                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                        <button type="submit" class="btn btn-outline-info">
+                        <i class="far fa-edit"></i>
+                    </button> 
+                    </td>
+                    </form>               
                     <form method="post" action='delete.php?id="<?php echo $row['id'];?>"'>
                     <td class="recipe-delete">
                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">

@@ -1,4 +1,8 @@
-<?php include('../login/functions.php') ?>
+<?php
+include('../login/functions.php');
+include('../recipes/edit_user_query.php');
+?>
+
 <html>
 <head>
     <title>Tasty Therapy</title>
@@ -90,34 +94,45 @@ body, html {
 
 <div style="padding-top: 64px;">
 <div class="header">
-		<h2>New recipe</h2>
+		<h2>Edit current user data</h2>
 	</div>
-	<form method="post" action="new_recipe.php">
+    
+	<form method="post" action='edit_user_query.php'>
 
-		<?php echo display_error(); ?>
+    <?php echo display_error(); 
+    $idToEdit = $_POST['id'];
+    $query="SELECT * FROM users WHERE id = '$idToEdit'";
+    mysqli_query($db, $query);
+    $result = mysqli_query($db, $query);
+    $row = mysqli_fetch_assoc($result);
+    
+    ?>
 
 		<div class="input-group">
-			<label>Recipe title</label>
-			<input type="text" name="title" >
+			<label>Username</label>
+			<input type="text" name="username" placeholder="<?php echo $row['username'] ?>">
 		</div>
 		<div class="input-group">
-			<label>Pic - add link to picture</label>
-			<input type="text" name="pic">
+			<label>email</label>
+			<input type="text" name="email" placeholder="<?php echo $row['email'] ?>">
 		</div>
     <div class="input-group">
-			<label>Ingredients - separated by ","</label>
-			<input type="text" name="ingredients">
+			<label>User type</label>
+            <select name="user_type" id="user_type" >
+                <option value=""></option>
+				<option value="admin">Admin</option>
+				<option value="user">User</option>
+			</select>
 		</div>
         <div class="input-group">
-			<label>Description</label>
-			<input type="text" name="description">
+			<label>Password</label>
+			<input type="text" name="password" placeholder="<?php echo $row['password'] ?>">
     </div>
-    <div class="input-group">
-			<label>Details - add link to article</label>
-			<input type="text" name="directions">
-		</div>
-		<div class="input-group">
-			<button type="submit" class="btn" name="new_recipe_btn">Add recipe</button>
+    
+	<div class="input-group">
+          <input type="hidden" name="id" id="id" value="<?php echo $idToEdit ?>">
+          <button type="submit" class="btn" name="edit_user_btn">Update user</button> 
+                             
 		</div>
 		
   </form>

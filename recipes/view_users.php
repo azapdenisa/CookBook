@@ -110,6 +110,8 @@
                 <th> &nbsp &nbsp Email link &nbsp &nbsp</th>
                 <th> &nbsp &nbsp User type &nbsp &nbsp</th>
                 <th> &nbsp &nbsp Password &nbsp &nbsp</th>
+                <th> &nbsp &nbsp Edit &nbsp &nbsp</th>
+                <th> &nbsp &nbsp Delete &nbsp &nbsp</th>
             </tr>
         </thead>
         <tbody>
@@ -123,7 +125,14 @@
                     <td>{$row['email']}</td>
                     <td>{$row['user_type']}</td>
                     <td>{$row['password']}</td> "?>
-                        
+                    <form method="post" action='edit_user.php?id="<?php echo $row['id'];?>"'>
+                    <td class="user-edit">
+                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                        <button type="submit" class="btn btn-outline-info"  >
+                        <i class="far fa-edit"></i>
+                    </button> 
+                    </td>
+                    </form>                
                     <form method="post" action='delete_user.php?id="<?php echo $row['id'];?>"'>
                     <td class="user-delete">
                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
